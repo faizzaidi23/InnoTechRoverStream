@@ -1,0 +1,47 @@
+.video-container {
+  position: relative;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#stream {
+  width: 100%;
+  height: auto;
+  display: none;
+}
+
+#stream.active {
+  display: block;
+}
+
+.no-stream-message {
+  text-align: center;
+  color: #888;
+  padding: 40px;
+}
+
+.no-stream-message p:first-child {
+  font-size: 4em;
+  margin-bottom: 20px;
+}
+
+.help-text {
+  font-size: 1.1em;
+  color: #aaa;
+}
+
+@media (max-width: 768px) {
+  .video-container {
+    min-height: 300px;
+  }
+
+  .no-stream-message p:first-child {
+    font-size: 3em;
+  }
+}
