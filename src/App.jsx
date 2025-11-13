@@ -44,13 +44,12 @@ function App() {
 
     setIsConnected(true)
     
-    // Start checking for detection messages from ESP32-CAM
-    // The ESP32-CAM should send detection status via a separate endpoint or embed it in the stream
+   
     detectionCheckInterval.current = setInterval(() => {
       checkForDetection()
-    }, 1000) // Check every second
+    }, 1000) 
 
-    // Start FPS counter
+   
     startFpsCounter()
   }
 
@@ -75,8 +74,7 @@ function App() {
 
   const checkForDetection = async () => {
     try {
-      // Try to fetch detection status from ESP32-CAM
-      // This endpoint should be implemented on your ESP32-CAM
+      
       const response = await fetch(`http://${espIp}/status`, {
         method: 'GET',
         mode: 'cors'
@@ -86,7 +84,7 @@ function App() {
         const data = await response.json()
         
         if (data.humanDetected && !detectionStatus.detected) {
-          // New detection!
+        
           const now = new Date().toLocaleTimeString()
           setDetectionStatus(prev => ({
             detected: true,
@@ -94,12 +92,11 @@ function App() {
             totalDetections: prev.totalDetections + 1
           }))
           
-          // Trigger voice alert
+      
           if (isVoiceEnabled) {
             speak(alertMessage)
           }
           
-          // Reset detection status after 3 seconds
           setTimeout(() => {
             setDetectionStatus(prev => ({
               ...prev,
@@ -114,8 +111,7 @@ function App() {
         }
       }
     } catch (error) {
-      // If status endpoint doesn't exist, we'll rely on visual detection
-      // or you can parse the stream URL for detection info
+    
       console.log('Status check failed (this is normal if ESP32 doesn\'t have /status endpoint)')
     }
   }

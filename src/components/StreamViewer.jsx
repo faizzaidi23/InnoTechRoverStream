@@ -7,20 +7,12 @@ function StreamViewer({ espIp, isConnected, streamRef, onImageLoad }) {
 
   useEffect(() => {
     if (isConnected && imgRef.current) {
-      // Show the stream image
+
       imgRef.current.classList.add('active')
-      
-      // Set up automatic reload for MJPEG stream
-      // Most ESP32-CAM setups use MJPEG streams at /stream endpoint
+  
       const streamUrl = `http://${espIp}/stream`
       imgRef.current.src = streamUrl
-      
-      // Alternatively, for periodic refresh (if not MJPEG):
-      // reloadInterval.current = setInterval(() => {
-      //   if (imgRef.current) {
-      //     imgRef.current.src = `http://${espIp}/capture?t=${Date.now()}`
-      //   }
-      // }, 100) // 10 FPS
+     
       
     } else if (imgRef.current) {
       imgRef.current.classList.remove('active')

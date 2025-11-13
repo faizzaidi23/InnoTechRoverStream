@@ -60,14 +60,12 @@ httpd_handle_t stream_httpd = NULL;
 
 bool humanDetected = false;
 
-// CORS headers
 void setCrossOrigin() {
   server.sendHeader("Access-Control-Allow-Origin", "*");
   server.sendHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   server.sendHeader("Access-Control-Allow-Headers", "Content-Type");
 }
 
-// Status endpoint
 void handleStatus() {
   setCrossOrigin();
   
@@ -79,13 +77,11 @@ void handleStatus() {
   server.send(200, "application/json", json);
 }
 
-// Handle OPTIONS for CORS
 void handleOptions() {
   setCrossOrigin();
   server.send(204);
 }
 
-// Stream handler
 esp_err_t stream_handler(httpd_req_t *req) {
   camera_fb_t * fb = NULL;
   esp_err_t res = ESP_OK;
@@ -93,7 +89,7 @@ esp_err_t stream_handler(httpd_req_t *req) {
   uint8_t * _jpg_buf = NULL;
   char * part_buf[64];
 
-  // Set CORS headers
+ 
   httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
   
   res = httpd_resp_set_type(req, "multipart/x-mixed-replace;boundary=frame");
