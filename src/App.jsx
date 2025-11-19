@@ -3,12 +3,13 @@ import Header from './components/Header'
 import ConnectionPanel from './components/ConnectionPanel'
 import StreamViewer from './components/StreamViewer'
 import DetectionPanel from './components/DetectionPanel'
+import DetectionAlert from './components/DetectionAlert'
 import Footer from './components/Footer'
 import useVoiceAlert from './hooks/useVoiceAlert'
 import './App.css'
 
 function App() {
-  const [espIp, setEspIp] = useState('192.168.1.100')
+  const [backendUrl, setBackendUrl] = useState('http://localhost:5000')
   const [isConnected, setIsConnected] = useState(false)
   const [detectionStatus, setDetectionStatus] = useState({
     detected: false,
@@ -37,19 +38,19 @@ function App() {
   const frameCount = useRef(0)
 
   const connectToStream = () => {
-    if (!espIp.trim()) {
-      alert('Please enter a valid ESP32-CAM IP address')
+    if (!backendUrl.trim()) {
+      alert('Please enter a valid backend URL')
       return
     }
 
     setIsConnected(true)
     
-   
+    // Start checking for detection from Flask backend
     detectionCheckInterval.current = setInterval(() => {
       checkForDetection()
     }, 1000) 
 
-   
+    // Start FPS counter
     startFpsCounter()
   }
 
@@ -74,8 +75,8 @@ function App() {
 
   const checkForDetection = async () => {
     try {
-      
-      const response = await fetch(`http://${espIp}/status`, {
+      // Fetch detection status from Flask backend
+      const response = await fetch(`${backendUrl}/status`, {
         method: 'GET',
         mode: 'cors'
       })
@@ -83,8 +84,13 @@ function App() {
       if (response.ok) {
         const data = await response.json()
         
-        if (data.humanDetected && !detectionStatus.detected) {
+        // Update FPS if available
+        if (data.fps) {
+          setStreamFps(data.fps)
+        }
         
+        // Update detection status
+        if (data.humanDetected && !detectionStatus.detected) {
           const now = new Date().toLocaleTimeString()
           setDetectionStatus(prev => ({
             detected: true,
@@ -92,7 +98,8 @@ function App() {
             totalDetections: prev.totalDetections + 1
           }))
           
-      
+          // Voice alert is now handled by DetectionAlert component
+          // But we can still trigger it here if needed
           if (isVoiceEnabled) {
             speak(alertMessage)
           }
@@ -111,8 +118,7 @@ function App() {
         }
       }
     } catch (error) {
-    
-      console.log('Status check failed (this is normal if ESP32 doesn\'t have /status endpoint)')
+      console.log('Flask backend status check failed:', error)
     }
   }
 
@@ -145,20 +151,32 @@ function App() {
       <Header />
       
       <ConnectionPanel
-        espIp={espIp}
-        setEspIp={setEspIp}
+        espIp={backendUrl}
+        setEspIp={setBackendUrl}
         isConnected={isConnected}
         connectToStream={connectToStream}
         disconnectStream={disconnectStream}
       />
 
       <div className="main-content">
-        <StreamViewer
-          espIp={espIp}
-          isConnected={isConnected}
-          streamRef={streamRef}
-          onImageLoad={handleImageLoad}
-        />
+        <div className="stream-section">
+          <StreamViewer
+            espIp={backendUrl}
+            isConnected={isConnected}
+            streamRef={streamRef}
+            onImageLoad={handleImageLoad}
+          />
+          
+          {isConnected && (
+            <DetectionAlert
+              backendUrl={backendUrl}
+              isVoiceEnabled={isVoiceEnabled}
+              alertMessage={alertMessage}
+              voiceRate={voiceRate}
+              voicePitch={voicePitch}
+            />
+          )}
+        </div>
 
         <DetectionPanel
           detectionStatus={detectionStatus}

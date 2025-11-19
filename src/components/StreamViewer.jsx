@@ -7,12 +7,12 @@ function StreamViewer({ espIp, isConnected, streamRef, onImageLoad }) {
 
   useEffect(() => {
     if (isConnected && imgRef.current) {
-
+      // Show the stream image
       imgRef.current.classList.add('active')
-  
-      const streamUrl = `http://${espIp}/stream`
+      
+      // Connect to Flask backend stream endpoint
+      const streamUrl = `${espIp}/stream`
       imgRef.current.src = streamUrl
-     
       
     } else if (imgRef.current) {
       imgRef.current.classList.remove('active')
@@ -42,7 +42,7 @@ function StreamViewer({ espIp, isConnected, streamRef, onImageLoad }) {
       {!isConnected && (
         <div id="no-stream" className="no-stream-message">
           <p>📹 No Stream Connected</p>
-          <p className="help-text">Enter your ESP32-CAM IP address and click Connect</p>
+          <p className="help-text">Enter Flask backend URL and click Connect</p>
         </div>
       )}
     </div>
