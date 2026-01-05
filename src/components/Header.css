@@ -16,12 +16,12 @@ header h1 {
   opacity: 0.9;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 758px) {
   header h1 {
     font-size: 1.8em;
   }
 
   .subtitle {
-    font-size: 1em;
+    font-size: 2em;
   }
 }
