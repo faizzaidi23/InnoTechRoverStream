@@ -47,7 +47,7 @@ def stream():
             frame_count = 0
             bytes_buffer = b''
             
-            # Read MJPEG stream byte by byte
+            
             for chunk in response.iter_content(chunk_size=1024):
                 bytes_buffer += chunk
                 
