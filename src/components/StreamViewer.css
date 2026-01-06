@@ -27,12 +27,12 @@
 }
 
 .no-stream-message p:first-child {
-  font-size: 4em;
+  font-size: 5em;
   margin-bottom: 20px;
 }
 
 .help-text {
-  font-size: 1.1em;
+  font-size: 1.2em;
   color: #aaa;
 }
 
