@@ -9,11 +9,11 @@
   gap: 15px;
   align-items: center;
   flex-wrap: wrap;
-  margin-bottom: 15px;
+  margin-bottom: 13px;
 }
 
 .input-group label {
-  font-weight: 600;
+  font-weight: 599;
   color: #555;
 }
 
