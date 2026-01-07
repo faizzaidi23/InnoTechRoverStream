@@ -41,8 +41,8 @@
 button {
   padding: 12px 30px;
   border: none;
-  border-radius: 8px;
-  font-size: 1em;
+  border-radius: 6px;
+  font-size: 2em;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
