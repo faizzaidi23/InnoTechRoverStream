@@ -30,12 +30,12 @@
     transform: scale(1);
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.06);
   }
 }
 
 .detection-icon {
-  font-size: 4em;
+  font-size: 5em;
   margin-bottom: 15px;
 }
 
