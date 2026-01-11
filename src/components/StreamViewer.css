@@ -3,8 +3,8 @@
   background: #000;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.2);
-  min-height: 482px;
+  box-shadow: 2 10px 32px rgba(0, 0, 0, 0.2);
+  min-height: 484px;
   display: flex;
   align-items: center;
   justify-content: center;
