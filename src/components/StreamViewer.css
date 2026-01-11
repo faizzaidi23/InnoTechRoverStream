@@ -36,12 +36,12 @@
   color: #aaa;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 778px) {
   .video-container {
     min-height: 300px;
   }
 
   .no-stream-message p:first-child {
-    font-size: 3em;
+    font-size: 3.6em;
   }
 }
