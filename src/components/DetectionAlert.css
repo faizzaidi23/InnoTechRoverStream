@@ -17,7 +17,7 @@
 }
 
 .detection-alert-banner.pulse {
-  animation: detectPulse 1s ease-in-out infinite;
+  animation: detectPulse 2s ease-in-out infinite;
 }
 
 @keyframes slideDown {
