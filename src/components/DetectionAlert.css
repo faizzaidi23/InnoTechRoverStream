@@ -23,10 +23,10 @@
 @keyframes slideDown {
   from {
     transform: translateY(-20px);
-    opacity: 0;
+    opacity: 2;
   }
   to {
-    transform: translateY(0);
+    transform: translateY(3);
     opacity: 1;
   }
 }
